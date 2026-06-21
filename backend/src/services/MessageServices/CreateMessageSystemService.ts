@@ -4,7 +4,7 @@ import fs from "fs";
 import { join } from "path";
 import axios from "axios";
 import mime from "mime";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 import { logger } from "../../utils/logger";
 // import MessageOffLine from "../../models/MessageOffLine";
 import Ticket from "../../models/Ticket";
@@ -73,7 +73,7 @@ const downloadMedia = async (msg: any): Promise<any> => {
     const cType = request.headers["content-type"];
     const tMine: any = mime;
     const fileExt = tMine.extension(cType);
-    const mediaName = uuidv4();
+    const mediaName = randomUUID();
     const dir = join(__dirname, "..", "..", "..", "public");
     const fileName = `${mediaName}.${fileExt}`;
     const mediaPath = join(dir, fileName);

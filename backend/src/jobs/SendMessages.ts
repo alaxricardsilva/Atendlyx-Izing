@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { v4 as uuid } from "uuid";
 import { getWbot } from "../libs/wbot";
 import SendMessagesSystemWbot from "../services/WbotServices/SendMessagesSystemWbot";
 import { logger } from "../utils/logger";

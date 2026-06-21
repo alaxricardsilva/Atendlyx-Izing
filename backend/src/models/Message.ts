@@ -11,7 +11,7 @@ import {
   ForeignKey,
   AllowNull
 } from "sequelize-typescript";
-import { v4 as uuidV4 } from "uuid";
+import { randomUUID } from "crypto";
 import Contact from "./Contact";
 import Tenant from "./Tenant";
 import Ticket from "./Ticket";
@@ -20,7 +20,7 @@ import User from "./User";
 @Table
 class Message extends Model<Message> {
   @PrimaryKey
-  @Default(uuidV4)
+  @Default(randomUUID)
   @Column
   id: string;
 

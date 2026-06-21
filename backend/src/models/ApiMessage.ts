@@ -13,7 +13,7 @@ import {
   AfterCreate,
   AfterUpdate
 } from "sequelize-typescript";
-import { v4 as uuidV4 } from "uuid";
+import { randomUUID } from "crypto";
 import Queue from "../libs/Queue";
 import Tenant from "./Tenant";
 import Whatsapp from "./Whatsapp";
@@ -21,7 +21,7 @@ import Whatsapp from "./Whatsapp";
 // @Table({ freezeTableName: true })
 class ApiMessage extends Model<ApiMessage> {
   @PrimaryKey
-  @Default(uuidV4)
+  @Default(randomUUID)
   @Column(DataType.UUID)
   id: string;
 

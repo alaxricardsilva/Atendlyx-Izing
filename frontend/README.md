@@ -4,7 +4,7 @@ Bot Multi-atendimento para whatsapp
 
 ## Install the dependencies
 ```bash
-npm install
+bun install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -14,12 +14,12 @@ quasar dev
 
 ### Lint the files
 ```bash
-npm run lint
+bun run lint
 ```
 
 ### Build the app for production
 ```bash
-quasar build
+bun run build
 ```
 
 ### Customize the configuration

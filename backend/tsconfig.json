@@ -14,7 +14,11 @@
     "sourceMap": true,
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "exclude": [
     "dist",

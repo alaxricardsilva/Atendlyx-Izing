@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 import { Request, Response } from "express";
 import { head } from "lodash";
-import XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import path from "path";
-import { v4 as uuidV4 } from "uuid";
+import { randomUUID } from "crypto";
 import fs from "fs";
 import ListContactsService from "../services/ContactServices/ListContactsService";
 import CreateContactService from "../services/ContactServices/CreateContactService";
@@ -251,21 +251,20 @@ export const exportContacts = async (req: Request, res: Response) => {
     raw: true
   });
 
-  // Cria um novo workbook e worksheet
-  const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.json_to_sheet(contacts);
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet("Contatos");
+  worksheet.columns = [
+    { header: "id", key: "id" },
+    { header: "name", key: "name" },
+    { header: "number", key: "number" },
+    { header: "email", key: "email" }
+  ];
+  contacts.forEach(contact => worksheet.addRow(contact));
 
-  // Adiciona o worksheet ao workbook
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Contatos");
-
-  // Gera o arquivo Excel no formato .xlsx
-  const excelBuffer = XLSX.write(workbook, {
-    bookType: "xlsx",
-    type: "buffer"
-  });
+  const excelBuffer = Buffer.from(await workbook.xlsx.writeBuffer());
 
   // Define o nome do arquivo
-  const fileName = `${uuidV4()}_contatos.xlsx`;
+  const fileName = `${randomUUID()}_contatos.xlsx`;
   const filePath = path.join(__dirname, "..", "..", "public", "downloads");
   const file = path.join(filePath, fileName);
 

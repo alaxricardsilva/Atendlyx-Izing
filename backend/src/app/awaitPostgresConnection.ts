@@ -22,7 +22,7 @@ const waitForPostgresConnection = async function () {
         logger.info("Iniciando a execução das migrations...");
         // eslint-disable-next-line no-await-in-loop
         const { stdout, stderr } = await execAsync(
-          "npm run copy-templates-files && npx sequelize db:migrate"
+          "bun run copy-templates-files && bunx sequelize db:migrate"
         );
         logger.info(`Saída do comando: ${stdout}`);
         if (stderr) {
