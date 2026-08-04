@@ -1,4 +1,6 @@
-import { BullAdapter, setQueues, router as bullRoute } from "bull-board";
+import { createBullBoard } from "@bull-board/api";
+import { BullAdapter } from "@bull-board/api/bullAdapter";
+import { ExpressAdapter } from "@bull-board/express";
 import Queue from "../libs/Queue";
 
 export default async function bullMQ(app) {
@@ -10,7 +12,14 @@ export default async function bullMQ(app) {
   await Queue.add("SendMessageSchenduled", {});
 
   if (process.env.NODE_ENV !== "production") {
-    setQueues(Queue.queues.map((q: any) => new BullAdapter(q.bull) as any));
-    app.use("/admin/queues", bullRoute);
+    const serverAdapter = new ExpressAdapter();
+    serverAdapter.setBasePath("/admin/queues");
+
+    createBullBoard({
+      queues: Queue.queues.map((q: any) => new BullAdapter(q.bull) as any),
+      serverAdapter
+    });
+
+    app.use("/admin/queues", serverAdapter.getRouter());
   }
 }

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MessageMedia, Message as WbotMessage } from "whatsapp-web.js";
 import fs from "fs";
-import { v4 as uuid } from "uuid";
 import axios from "axios";
 import mime from "mime-types";
 import { join } from "path";

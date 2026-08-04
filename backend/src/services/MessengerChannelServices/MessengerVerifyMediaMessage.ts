@@ -34,7 +34,8 @@ const downloadFile = async (url: string, filename: string): Promise<string> => {
     name = `${new Date().getTime()}-${fileName}`;
   } else {
     const contentType = request.headers["content-type"];
-    const ext = contentType.split("/")[1];
+    const ext =
+      typeof contentType === "string" ? contentType.split("/")[1] : "bin";
     name = `${filename}-${new Date().getTime()}.${ext}`;
   }
 
